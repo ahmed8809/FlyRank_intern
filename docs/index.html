@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A public-safe research artifact studying structured content performance archetypes with K-Means clustering on the March 2026 FlyRank internship dataset.">
+<title>Structured Content Performance Archetypes</title>
+<style>
+:root{
+  --ink:#172033;--muted:#667085;--line:#e6e9ef;--paper:#ffffff;--bg:#f7f8fb;
+  --accent:#3157d5;--accent-soft:#eef2ff;--dark:#101827;--max:1080px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.nav{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:var(--max);margin:auto;padding:12px 24px;display:flex;gap:18px;align-items:center;overflow:auto;white-space:nowrap}
+.nav strong{margin-right:auto}
+.nav a{font-size:13px;color:var(--muted)}
+.hero{background:var(--dark);color:#fff;padding:88px 24px 72px}
+.hero-inner{max-width:var(--max);margin:auto}
+.kicker{letter-spacing:.12em;text-transform:uppercase;font-size:12px;color:#aebcff;font-weight:700}
+h1{font-size:clamp(42px,6vw,76px);line-height:1.02;letter-spacing:-.045em;max-width:850px;margin:18px 0}
+.deck{font-size:20px;line-height:1.5;color:#d4d9e5;max-width:760px}
+.meta{margin-top:28px;color:#aeb7c8;font-size:14px}
+main{max-width:var(--max);margin:auto;padding:0 24px}
+section{padding:68px 0;border-bottom:1px solid var(--line)}
+h2{font-size:32px;letter-spacing:-.03em;margin:0 0 18px}
+h3{font-size:20px;margin:32px 0 8px}
+p{max-width:780px}
+.lead{font-size:19px;line-height:1.65;color:#3d4658}
+.callout{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:28px;box-shadow:0 8px 30px rgba(16,24,39,.04)}
+.question{font-size:28px;line-height:1.3;font-weight:750;max-width:800px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:28px 0}
+.metric{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:20px}
+.metric .n{font-size:30px;font-weight:800;letter-spacing:-.03em}
+.metric .l{color:var(--muted);font-size:13px;margin-top:2px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:24px}
+figure{margin:30px 0;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px}
+figure img{display:block;width:100%;height:auto;border-radius:10px}
+figcaption{font-size:14px;color:var(--muted);padding:14px 4px 2px}
+figcaption strong{color:var(--ink)}
+table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:22px 0}
+th,td{text-align:left;padding:13px 15px;border-bottom:1px solid var(--line)}
+th{background:#f2f4f8;font-size:13px}
+td{font-size:14px}
+code{background:#f0f2f6;padding:2px 6px;border-radius:5px;font-size:.9em}
+ul,ol{max-width:800px}
+li{margin:10px 0}
+.tag{display:inline-block;background:var(--accent-soft);color:#2846a8;border-radius:999px;padding:5px 10px;font-size:12px;font-weight:700}
+.rank{display:grid;grid-template-columns:50px 1fr;gap:16px;padding:22px 0;border-bottom:1px solid var(--line)}
+.rank:last-child{border-bottom:0}
+.rank-num{font-size:24px;font-weight:800;color:var(--accent)}
+.footer{padding:56px 0 80px;color:var(--muted)}
+.note{font-size:13px;color:var(--muted)}
+@media(max-width:760px){
+ .nav strong{display:none}.nav-inner{gap:14px}
+ .hero{padding:64px 20px 52px} main{padding:0 20px}
+ .metrics,.grid{grid-template-columns:1fr 1fr}
+ section{padding:48px 0}
+ h2{font-size:28px}
+}
+@media(max-width:480px){.metrics{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="nav" aria-label="Paper sections">
+  <div class="nav-inner">
+    <strong>FlyRank research artifact</strong>
+    <a href="#abstract">Abstract</a><a href="#problem">Problem</a><a href="#data">Data</a>
+    <a href="#method">Method</a><a href="#results">Results</a><a href="#limits">Limits</a>
+    <a href="#recommendations">Recommendations</a><a href="#repro">Reproducibility</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="kicker">ML Internship · Capstone · March 2026</div>
+    <h1>Structured Content Performance Archetypes</h1>
+    <p class="deck">What recurring performance patterns appear when search exposure, engagement, ranking position, and content freshness are viewed together?</p>
+    <div class="meta">Author: ahmed8809 · Unsupervised performance-archetype analysis</div>
+  </div>
+</header>
+
+<main>
+<section id="abstract">
+  <span class="tag">Abstract</span>
+  <h2>A compact answer to the research question</h2>
+  <div class="callout">
+    <p class="lead">This study asks what recurring performance archetypes exist across a large content inventory using structured search-performance and freshness signals. Using the March 2026 FlyRank internship warehouse snapshot, we aggregate content-level observations and apply K-Means clustering to impressions, clicks, click-through rate, average search position, and content staleness. A client-grouped holdout separates 26 training clients from 7 unseen validation clients, and the selected two-cluster solution reaches a validation silhouette of 0.6875. On the same held-out rows, K-Means surfaces 81 of 12,688 items (0.64%) as a stale/low-demand archetype, whereas the stricter stale-and-visible baseline surfaces none for refresh. The result is a descriptive decision-support framework for human review—not evidence of causal refresh impact, semantic content type, or business value.</p>
+  </div>
+</section>
+
+<section id="problem">
+  <span class="tag">01 · Introduction</span>
+  <h2>The decision behind the analysis</h2>
+  <p class="lead">Large content inventories make it difficult to decide where human review should begin. A transparent rule can flag pages that are both old and visible, but it can miss a different population whose strongest observed signal is staleness combined with low exposure.</p>
+  <p class="question">What performance archetypes exist across the content inventory?</p>
+  <p>The unit of analysis is a client-content pair aggregated over March 2026. The output is an interpretable cluster assignment plus a review-prioritization framework. A wrong call can waste editorial effort or cause a useful page to be changed unnecessarily, so the output is intentionally decision support rather than an automated action.</p>
+</section>
+
+<section id="data">
+  <span class="tag">02 · Data</span>
+  <h2>One month, two tables, 27,886 observations</h2>
+  <div class="metrics">
+    <div class="metric"><div class="n">~79M</div><div class="l">daily warehouse records overall</div></div>
+    <div class="metric"><div class="n">27,886</div><div class="l">content observations in March snapshot</div></div>
+    <div class="metric"><div class="n">33</div><div class="l">clients represented</div></div>
+    <div class="metric"><div class="n">0</div><div class="l">client overlap across split</div></div>
+  </div>
+  <div class="grid">
+    <div class="card"><h3>Tables used</h3><p><code>fact_content_daily_performance</code> supplies daily search-performance observations. <code>dim_content</code> supplies <code>content_updated_date</code>, used to derive <code>stale_days</code>.</p></div>
+    <div class="card"><h3>Public-safety exclusions</h3><p>No client names, raw URLs, article titles, private queries, proprietary text, or private business information are published. Hashed identifiers are used internally for grouping and validation only.</p></div>
+  </div>
+  <table>
+    <thead><tr><th>Split</th><th>Rows</th><th>Clients</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>Training</td><td>15,198</td><td>26</td><td>Fit scaler and K-Means</td></tr>
+      <tr><td>Validation</td><td>12,688</td><td>7</td><td>Held-out transfer check</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="method">
+  <span class="tag">03 · Methodology</span>
+  <h2>Learn structure, then test it on unseen clients</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Feature representation</h3>
+      <ul>
+        <li>March GSC impressions</li><li>March GSC clicks</li>
+        <li>GSC click-through rate</li><li>average search position</li>
+        <li>content staleness in days</li>
+      </ul>
+      <p>Impressions and clicks use <code>log1p</code>. All features are standardized using training-client parameters only.</p>
+    </div>
+    <div class="card">
+      <h3>K-Means</h3>
+      <p>Candidate <code>k=2…6</code> values were assessed with training silhouette. The strongest stored-run value was <strong>k=2</strong>.</p>
+      <p><code>random_state=42</code> · <code>n_init=20</code></p>
+    </div>
+  </div>
+  <h3>Validation design</h3>
+  <p>A <code>GroupShuffleSplit</code> holds out entire clients (20%, random seed 42). No client appears in both training and validation. The validation model is applied without refitting the scaler or K-Means model.</p>
+  <h3>Leakage controls</h3>
+  <p>Only the March 2026 snapshot is used. No future performance outcome is used. There is no prediction label in this unsupervised task, and identifiers are never model features.</p>
+</section>
+
+<section id="results">
+  <span class="tag">04 · Results</span>
+  <h2>The obvious rule and the learned archetype see different pages</h2>
+  <div class="metrics">
+    <div class="metric"><div class="n">0.5114</div><div class="l">training silhouette</div></div>
+    <div class="metric"><div class="n">0.6875</div><div class="l">validation silhouette</div></div>
+    <div class="metric"><div class="n">81</div><div class="l">stale/low-demand validation items</div></div>
+    <div class="metric"><div class="n">0</div><div class="l">baseline refresh selections</div></div>
+  </div>
+
+  <figure>
+    <img src="assets/cluster_selection.png" alt="Line chart showing silhouette scores for K-Means k values 2 through 6; k=2 is highest.">
+    <figcaption><strong>Cluster selection.</strong> The stored training run favored two clusters; the final validation silhouette is reported separately because validation is performed on held-out clients.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="assets/archetype_volume.png" alt="Bar chart showing 12,607 validation items in Visible / Established and 81 in Stale Low-Demand.">
+    <figcaption><strong>Validation volume.</strong> The learned structure is highly imbalanced: 12,607 items (99.36%) are Visible / Established and 81 (0.64%) are Stale Low-Demand.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="assets/staleness_by_archetype.png" alt="Bar chart showing median stale days of about 34 for Visible / Established and 230 for Stale Low-Demand.">
+    <figcaption><strong>Staleness separates the archetypes.</strong> Median stale days are approximately 34 versus 230, making freshness a prominent descriptive difference between the two groups.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="assets/model_vs_baseline_coverage.png" alt="Bar chart comparing 81 validation items surfaced by K-Means as Stale Low-Demand with zero selected by the strict baseline refresh rule.">
+    <figcaption><strong>Same held-out rows, different operational coverage.</strong> K-Means surfaced 81 Stale Low-Demand items, while the strict baseline rule surfaced zero for refresh.</figcaption>
+  </figure>
+
+  <h3>Model vs baseline: an honest comparison</h3>
+  <p>The Week-4 baseline selects a page only when it is at least 90 days stale <strong>and</strong> has at least 1,000 March impressions. Both frameworks are evaluated on the same 12,688 held-out rows.</p>
+  <p>Because K-Means has no ground-truth outcome label, predictive accuracy, precision, AUC, or lift would be misleading. The fair comparison is operational coverage: what each framework surfaces and how their selections differ.</p>
+  <table>
+    <thead><tr><th>Framework</th><th>Held-out items surfaced</th><th>Share</th><th>Interpretation</th></tr></thead>
+    <tbody>
+      <tr><td>K-Means · Stale Low-Demand</td><td>81</td><td>0.64%</td><td>Learned archetype with low exposure and high staleness</td></tr>
+      <tr><td>Week-4 baseline · Refresh</td><td>0</td><td>0%</td><td>Strict stale + visible rule</td></tr>
+    </tbody>
+  </table>
+  <p class="note">This difference does not establish that K-Means is “better.” It shows that the two decision-support lenses have different coverage on the same held-out clients.</p>
+</section>
+
+<section id="limits">
+  <span class="tag">05 · Limitations</span>
+  <h2>What this analysis cannot prove</h2>
+  <ol>
+    <li><strong>Descriptive, not causal.</strong> Clusters do not show that refreshing content causes better performance.</li>
+    <li><strong>Not semantic.</strong> No article text is used, so clusters do not represent topic, meaning, or content quality.</li>
+    <li><strong>Rare archetype.</strong> The Stale Low-Demand group contains only 81 validation observations.</li>
+    <li><strong>One-month window.</strong> The main model uses March 2026 rather than a long longitudinal history.</li>
+    <li><strong>Exposure is not business value.</strong> Impressions do not directly measure revenue, conversions, strategic importance, or editorial value.</li>
+    <li><strong>Missing context.</strong> The model cannot judge factual accuracy, intent alignment, content quality, or editorial appropriateness.</li>
+    <li><strong>Cluster uncertainty.</strong> Boundary cases should be reviewed manually.</li>
+    <li><strong>Validation scope.</strong> Client-grouped validation is stronger than a random page split, but does not guarantee future stability.</li>
+    <li><strong>Strict baseline.</strong> The baseline selected no held-out pages in the stored run, so it is mainly a useful contrast for this validation composition.</li>
+  </ol>
+</section>
+
+<section id="recommendations">
+  <span class="tag">06 · Ranked recommendations</span>
+  <h2>Turn patterns into a human-review playbook</h2>
+  <div class="callout">
+    <div class="rank"><div class="rank-num">01</div><div><h3>Review stale pages with meaningful visibility</h3><p>Start with pages at least 90 days stale that still receive measurable search exposure. Treat them as plausible refresh candidates, not guaranteed wins.</p></div></div>
+    <div class="rank"><div class="rank-num">02</div><div><h3>Diagnose very stale, low-demand pages before investing heavily</h3><p>Use the Stale Low-Demand archetype as a diagnostic queue. Check topic demand, strategic value, and editorial context before investing.</p></div></div>
+    <div class="rank"><div class="rank-num">03</div><div><h3>Maintain established pages unless another signal indicates a problem</h3><p>The Visible / Established archetype generally has stronger observed exposure and lower staleness, so monitoring is preferable to automatic rewriting.</p></div></div>
+    <div class="rank"><div class="rank-num">04</div><div><h3>Manually inspect uncertain assignments</h3><p>Pages close to the learned cluster boundary should be reviewed by a person.</p></div></div>
+    <div class="rank"><div class="rank-num">05</div><div><h3>Revalidate over time</h3><p>Rerun the clustering and action rules on later snapshots; track distribution drift, cluster stability, missingness, and human-review overrides.</p></div></div>
+  </div>
+  <p class="note">All recommendations are decision support, not automated production actions.</p>
+</section>
+
+<section id="repro">
+  <span class="tag">07 · Reproducibility</span>
+  <h2>Inspect the work, then rerun it</h2>
+  <p>The full analysis lives in the repository. The capstone notebook is the primary narrative implementation; the supporting notebooks document the baseline, model, validation, and action-playbook work.</p>
+  <div class="grid">
+    <div class="card">
+      <h3>Core artifacts</h3>
+      <ul>
+        <li><a href="https://github.com/ahmed8809/FlyRank_intern/blob/main/work/notebooks/capstone.ipynb">Capstone notebook</a></li>
+        <li><a href="https://github.com/ahmed8809/FlyRank_intern/blob/main/work/notebooks/w04_baseline_score.ipynb">Baseline notebook</a></li>
+        <li><a href="https://github.com/ahmed8809/FlyRank_intern/blob/main/work/notebooks/w05_model.ipynb">Model notebook</a></li>
+        <li><a href="https://github.com/ahmed8809/FlyRank_intern/blob/main/work/notebooks/w06_validation_audit.ipynb">Validation audit</a></li>
+        <li><a href="https://github.com/ahmed8809/FlyRank_intern/blob/main/work/notebooks/w07_action_playbook.ipynb">Action playbook</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Reproduction settings</h3>
+      <p>March 2026 snapshot · K-Means <code>k=2</code> · <code>random_state=42</code> · <code>n_init=20</code> · client-grouped validation · <code>log1p</code> on impressions/clicks · training-only standardization.</p>
+      <p><a href="https://github.com/ahmed8809/FlyRank_intern">Open the GitHub repository →</a></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <span class="tag">08 · Acknowledgments & data credit</span>
+  <h2>Data credit</h2>
+  <p>Built on the <strong>FlyRank ML Internship dataset</strong>. Data is used according to the internship's data-use rules and presented here in a public-safe, anonymized form.</p>
+  <p><a href="https://flyrank.ai">FlyRank.ai →</a></p>
+</section>
+
+<footer class="footer">
+  <p><strong>Research artifact · March 2026</strong></p>
+  <p>This page intentionally avoids client-identifying information, raw URLs, private queries, and causal claims.</p>
+</footer>
+</main>
+</body>
+</html>
