@@ -7,17 +7,17 @@
 
 ## Abstract
 
-This study asks what recurring performance archetypes exist across a large content inventory using structured search-performance and freshness signals. Using the March 2026 FlyRank internship warehouse snapshot, we aggregate content-level observations and apply K-Means clustering to impressions, clicks, click-through rate, average search position, and content staleness. A client-grouped holdout separates 26 training clients from 7 unseen validation clients, and the selected two-cluster solution reaches a validation silhouette of 0.6875. On the same held-out rows, K-Means surfaces 81 of 12,688 items (0.64%) as a stale/low-demand archetype, whereas the stricter stale-and-visible baseline surfaces none for refresh. The result is a descriptive decision-support framework for human review—not evidence of causal refresh impact, semantic content type, or business value.
+This case study addresses a FlyRank content-operations problem: how analysts can triage a large content inventory for human review without assuming that every stale page is a good refresh candidate. Using the March 2026 FlyRank internship warehouse snapshot, we aggregate content-level observations and apply K-Means clustering to impressions, clicks, click-through rate, average search position, and content staleness. A client-grouped holdout separates 26 training clients from 7 unseen validation clients, and the selected two-cluster solution reaches a validation silhouette of 0.6875. On the same held-out rows, K-Means surfaces 81 of 12,688 items (0.64%) as a stale/low-demand archetype, whereas the stricter stale-and-visible baseline surfaces none for refresh. The result is a descriptive decision-support framework for prioritizing human review in the FlyRank content problem—not evidence of causal refresh impact, semantic content type, or business value.
 
 ## Introduction / Problem statement
 
-Content teams need a way to turn large search-performance inventories into a manageable review queue. A simple rule can identify pages that are both old and visible, but that rule can miss low-volume pages whose strongest signal is staleness rather than exposure.
+This case study starts from a practical FlyRank content-operations problem: analysts need to turn a large search-performance inventory into a manageable review queue and decide where human attention should begin. A simple rule can identify pages that are both old and visible, but that rule can miss low-volume pages whose strongest signal is staleness rather than exposure—and staleness by itself is not proof that a refresh will help.
 
 This analysis asks:
 
 > **What performance archetypes exist across the content inventory?**
 
-The unit of analysis is a client-content pair aggregated over March 2026. The output is an interpretable cluster assignment plus a human-review prioritization framework. A wrong call can waste editorial effort or cause a useful page to be changed unnecessarily, so the output is intentionally decision support rather than an automated action.
+The unit of analysis is a client-content pair aggregated over March 2026. The output is an interpretable cluster assignment plus a human-review prioritization framework for the FlyRank content problem. A wrong call can waste editorial effort or cause a useful page to be changed unnecessarily, so the output is intentionally decision support rather than an automated action or a prediction of refresh success.
 
 ## Data
 
